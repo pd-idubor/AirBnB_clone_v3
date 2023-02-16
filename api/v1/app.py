@@ -17,12 +17,12 @@ def tear_down(exception):
 
 
 if __name__ == "__main__":
-   app_host = os.getenv('HBNB_API_HOST')
-   app_port = os.getenv('HBNB_API_PORT')
-   if (app_host is None):
-       app_host = '0.0.0.0'
+    app_host = os.getenv('HBNB_API_HOST')
+    app_port = os.getenv('HBNB_API_PORT')
+    if (app_host is None):
+        app_host = '0.0.0.0'
 
-   if (app_port is None):
-       app_port = 5000
+    if (app_port is None):
+        app_port = 5000
 
-   app.run(host=app_host, port=int(app_port), threaded=True) 
+    app.run(host=app_host, port=int(app_port), threaded=True)
