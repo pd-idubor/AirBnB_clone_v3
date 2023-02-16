@@ -34,7 +34,7 @@ def delete_users(user_id=None):
         if user is not None:
             storage.delete(user)
             storage.save()
-            return (jsonify({}))
+            return (jsonify({}), 200)
         abort(404)
 
 
@@ -45,9 +45,12 @@ def create_users():
     data = request.get_json()
     if (data is None):
         return (jsonify({"error": "Not a JSON"}), 400)
-    name = data.get("name")
-    if name is None:
-        return (jsonify({"error": "Missing name"}), 400)
+    email = content.get("email")
+    if email is None:
+        return (jsonify({"error": "Missing email"}), 400)
+    password = content.get("password")
+    if password is None:
+        return (jsonify({"error": "Missing password"}), 400)
 
     new = User()
     for key, value in content.items():
@@ -59,7 +62,7 @@ def create_users():
 @app_views.route('/users/<user_id>', methods=["PUT"],
                  strict_slashes=False)
 def update_users(user_id):
-    """Updates a State"""
+    """Updates a User"""
     user = storage.get("User", user_id)
     if user is None:
         abort(404)
@@ -73,5 +76,5 @@ def update_users(user_id):
         if key not in ignore:
             setattr(user, key, value)
 
-    state.save()
+    user.save()
     return (jsonify(state.to_dict()), 200)
