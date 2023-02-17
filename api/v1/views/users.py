@@ -56,7 +56,7 @@ def create_users():
     for key, value in data.items():
         setattr(new, key, value)
     new.save()
-    return (jsonify(new_state.to_dict()), 201)
+    return (jsonify(new.to_dict()), 201)
 
 
 @app_views.route('/users/<user_id>', methods=["PUT"],
@@ -77,4 +77,4 @@ def update_users(user_id):
             setattr(user, key, value)
 
     user.save()
-    return (jsonify(state.to_dict()), 200)
+    return (jsonify(user.to_dict()), 200)
