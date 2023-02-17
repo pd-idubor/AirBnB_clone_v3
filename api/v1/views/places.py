@@ -11,14 +11,13 @@ from models.city import City
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
                  strict_slashes=False)
-@app_views.route('/places/<place_id>', methods=["GET"], strict_slashes=False)
 def places_by_cities(city_id=None):
     """Retrieves the list of all Place objects of a City"""
     if (city_id):
-        city = storage.get("State", state_id)
+        city = storage.get("City", city_id)
         if city is not None:
             places = [place.to_dict() for place in city.places]
-            return jsonify(places)
+            return (jsonify(places), 200)
         abort(404)
 
 
@@ -29,7 +28,7 @@ def get_place(place_id=None):
     if (place_id):
         place = storage.get("Place", place_id)
         if place is not None:
-            return jsonify(place.to_dict())
+            return (jsonify(place.to_dict()), 200)
         abort(404)
 
 
@@ -61,8 +60,8 @@ def create_places(city_id=None):
     user_id = content.get("user_id")
     if user_id is None:
         return (jsonify({"error": "Missing user_id"}), 400)
-    my_user = storage.get("User", user_id)
-    if my_user is None:
+    user = storage.get("User", user_id)
+    if user is None:
         abort(404)
 
     name = data.get("name")
