@@ -32,9 +32,9 @@ def delete_users(user_id=None):
     if (user_id):
         user = storage.get("User", user_id)
         if user is not None:
-            storage.delete(user)
+            user.delete()
             storage.save()
-            return (jsonify({}), 200)
+            return (jsonify({}))
         abort(404)
 
 
@@ -45,15 +45,15 @@ def create_users():
     data = request.get_json()
     if (data is None):
         return (jsonify({"error": "Not a JSON"}), 400)
-    email = content.get("email")
+    email = data.get("email")
     if email is None:
         return (jsonify({"error": "Missing email"}), 400)
-    password = content.get("password")
+    password = data.get("password")
     if password is None:
         return (jsonify({"error": "Missing password"}), 400)
 
     new = User()
-    for key, value in content.items():
+    for key, value in data.items():
         setattr(new, key, value)
     new.save()
     return (jsonify(new_state.to_dict()), 201)
