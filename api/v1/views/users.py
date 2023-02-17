@@ -9,7 +9,7 @@ from models.user import User
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
-@app_views.route('/userss/<user_id>', methods=["GET"], strict_slashes=False)
+@app_views.route('/users/<user_id>', methods=["GET"], strict_slashes=False)
 def all_users(user_id=None):
     """Retrieves the list of all User objects"""
     if (user_id):
