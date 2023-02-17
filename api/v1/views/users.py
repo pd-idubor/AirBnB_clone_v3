@@ -32,9 +32,9 @@ def delete_users(user_id=None):
     if (user_id):
         user = storage.get("User", user_id)
         if user is not None:
-            user.delete()
+            storage.delete(user)
             storage.save()
-            return (jsonify({}))
+            return (jsonify({}), 200)
         abort(404)
 
 
