@@ -58,7 +58,7 @@ def create_places(city_id=None):
     if (data is None):
         return (jsonify({"error": "Not a JSON"}), 400)
 
-    user_id = content.get("user_id")
+    user_id = data.get("user_id")
     if user_id is None:
         return (jsonify({"error": "Missing user_id"}), 400)
     user = storage.get("User", user_id)
